@@ -6,7 +6,7 @@ if [ $1 == master ];then
     nohup python3 ../core/revice_cmd.py &
     nohup python3 ../core/send_cmd.py &
 
-elif [ $1 == node2 ];then
+elif [ $1 == node ];then
     nohup python3 ../core/revice_cmd.py &
     nohup python3 ../core/revice_file.py &
 
