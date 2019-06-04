@@ -11,5 +11,5 @@ elif [ $1 == node2 ];then
     nohup python3 ../core/revice_file.py &
 
 elif [ $1 == stop ];then
-    ps -ef | grep python3|grep -v grep | awk '{print $2}'| xargs kill -9
+    ps -ef | grep python3|grep revice_|grep -v grep | awk '{print $2}'| xargs kill -9
 fi
