@@ -26,7 +26,7 @@ def revice_file():
     logger.debug("文件%s的信息报文已接收" %file["name"])
 
     while True:
-        with open(file['name'], "wb") as f:
+        with open(file['name']+"_bak", "wb") as f:
             while file['size']:
                 content = conn.recv(1024)
                 f.write(content)

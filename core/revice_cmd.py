@@ -21,7 +21,7 @@ def revice_cmd(sk):
     cmd = json.loads(cmd_json)
     logger.debug("收到命令:向主机%s传送文件%s"%(cmd[0], cmd[1]))
 
-    cmd_status = send_file(cmd[0], cmd[1])
+    cmd_status = send_file(cmd[0], cmd[1],cmd[2])
     logger.debug("命令执行状态：%s"%cmd_status)
     conn.send(cmd_status.encode())
 

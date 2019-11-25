@@ -7,20 +7,19 @@ import socket
 import os
 import json
 import struct
-from md5_file import GetFileMd5
 from log_file import my_log
 
 file_name=os.path.basename(__file__)
 logger=my_log(file_name)
 
-def send_file(host_name,file_name):
+def send_file(host_name,file_name,md5):
 
     ck=socket.socket()
     ck.connect((host_name,38080))
     file={}
     file["name"] = file_name
     file["size"] = os.path.getsize(file_name)
-    file['md5'] = GetFileMd5(file_name)
+    file['md5'] = md5
     file_json=json.dumps(file)
     file_len_struct=struct.pack('i',len(file_json))
     ck.send(file_len_struct)

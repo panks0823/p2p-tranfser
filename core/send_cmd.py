@@ -7,17 +7,18 @@ import json
 import os
 from threading import Thread
 from log_file import my_log
+from md5_file import GetFileMd5
 
 
 file_name=os.path.basename(__file__)
 logger=my_log(file_name)
 
-def send_cmd(src,dest,big_file):
+def send_cmd(src,dest,big_file,md5):
     #将接收文件的主机dest和要被发送的文件big_file组成命令,发送给接收命令的主机src(也就是要发送文件的主机)
     ck = socket.socket()
     ck.connect((src, 38070))
 
-    cmd=[dest,big_file]
+    cmd=[dest,big_file,md5]
     cmd_json=json.dumps(cmd)
     ck.send(cmd_json.encode())
     status=ck.recv(1024)
@@ -33,7 +34,7 @@ f=open('../conf/config','r')
 dict1=json.load(f)
 (big_file, lst2), = dict1.items()
 #lst2中存放准备接收文件的服务器列表
-
+file_md5=GetFileMd5(big_file)
 t_lst=[]
 
 while len(lst2) != 0:
@@ -43,7 +44,7 @@ while len(lst2) != 0:
         if i< len(lst2):
             logger.debug("由源主机%s向目标主机%s发送文件..." %(lst1[i],lst2[i]))
             # send_cmd(lst1[i],lst2[i])
-            t = Thread(target=send_cmd, args=(lst1[i],lst2[i],big_file))
+            t = Thread(target=send_cmd, args=(lst1[i],lst2[i],big_file,file_md5))
             t_lst.append(t)
             t.start()
         else:
