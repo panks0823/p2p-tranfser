@@ -25,8 +25,6 @@ def revice_file():
     file=json.loads(file_json)
     logger.debug("文件%s的信息报文已接收" %file["name"])
 
-#    file["name"] = file["name"]+"-bak"
-
     while True:
         with open(file['name'], "wb") as f:
             while file['size']:

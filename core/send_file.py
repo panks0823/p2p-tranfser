@@ -12,6 +12,7 @@ from log_file import my_log
 
 file_name=os.path.basename(__file__)
 logger=my_log(file_name)
+
 def send_file(host_name,file_name):
 
     ck=socket.socket()
